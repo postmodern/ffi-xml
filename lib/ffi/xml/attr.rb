@@ -34,6 +34,10 @@ module FFI
         self[:atype]
       end
 
+      def content
+        root.content
+      end
+
       def serialize(buffer,text)
         XML.xmlAttrSerializeTxtContent(buffer,self[:doc],self,text)
       end

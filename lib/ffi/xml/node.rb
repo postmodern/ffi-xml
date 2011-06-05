@@ -123,7 +123,9 @@ module FFI
       end
 
       def content
-        XML.xmlNodeGetContent(self)
+        ptr = XML.xmlNodeGetContent(self)
+
+        return ptr.get_string(0) unless ptr.null?
       end
 
       def content=(new_content)

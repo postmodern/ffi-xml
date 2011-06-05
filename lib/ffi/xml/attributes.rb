@@ -11,16 +11,27 @@ module FFI
         @node = node
       end
 
-      def [](name,namespace=nil)
-        if namespace
-          Attr.new(XML.xmlGetNsProp(@node,name,namespace))
+      def [](key,namespace=nil)
+        case key
+        when Symbol, String
+          name = name.to_s
+
+          if namespace
+            Attr.new(XML.xmlGetNsProp(@node,name,namespace))
+          else
+            Attr.new(XML.xmlGetProp(@node,name))
+          end
+        when Integer
+          each_with_index do |attr,index|
+            break attr if index == key
+          end
         else
-          Attr.new(XML.xmlGetProp(@node,name))
+          raise("key must be either a Symbol, String or Integer")
         end
       end
 
       def []=(node,value)
-        XML.xmlSetProp(@node,name,value)
+        XML.xmlSetProp(@node,name.to_s,value)
       end
 
       def has?(name,namespace=nil)
@@ -40,7 +51,15 @@ module FFI
       end
 
       def each
-        # TODO: implement
+        return enum_for unless block_given?
+
+        attr = Attr.new(@node[:properties])
+
+        until attr.null?
+          yield attr
+
+          attr = attr.next
+        end
       end
 
       def to_hash

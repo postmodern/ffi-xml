@@ -10,8 +10,10 @@ module FFI
         @node = node
       end
 
-      def [](index)
-        # TODO: implement
+      def [](key)
+        each_with_index do |node,index|
+          break node if index == key
+        end
       end
 
       def []=(index,node)
@@ -19,7 +21,15 @@ module FFI
       end
 
       def each
-        # TODO: implement
+        return enum_for unless block_given?
+
+        child = Node.new(@node[:children])
+
+        until child.null?
+          yield child
+
+          child = child.next
+        end
       end
 
       def <<(node)
