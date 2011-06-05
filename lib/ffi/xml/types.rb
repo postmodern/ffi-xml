@@ -827,6 +827,11 @@ module FFI
       :ASCII,     22, # pure ASCII
     ]
 
+    typedef :pointer, :xmlCharEncodingHandlerPtr
+
+    callback :xmlCharEncodingInputFunc, [:buffer_out, :pointer, :buffer_in, :pointer], :int
+    callback :xmlCharEncodingOutputFunc, [:buffer_out, :pointer, :buffer_in, :buffer_in, :pointer], :int
+
     enum :xmlParserInputState, [
       :eof, -1,	        # nothing is to be parsed
       :start, 0,	      # nothing has been parsed

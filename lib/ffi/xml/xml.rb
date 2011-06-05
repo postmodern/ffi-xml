@@ -14,6 +14,27 @@ module FFI
 
     attach_function :xmlCheckVersion, [:int], :void
 
+    # encoding.h
+    attach_function :UTF8Toisolat1, [:buffer_out, :pointer, :buffer_in, :pointer], :int
+    attach_function :isolat1ToUTF8, [:buffer_out, :pointer, :buffer_in, :pointer], :int
+    attach_function :xmlAddEncodingAlias, [:string, :string], :int
+    attach_function :xmlCharEncCloseFunc, [:xmlCharEncodingHandlerPtr], :int
+    attach_function :xmlCharEncFirstLine, [:xmlCharEncodingHandlerPtr, :xmlBufferPtr, :xmlBufferPtr], :int
+    attach_function :xmlCharEncInFunc, [:xmlCharEncodingHandlerPtr, :xmlBufferPtr, :xmlBufferPtr], :int
+    attach_function :xmlCharEncOutFunc, [:xmlCharEncodingHandlerPtr, :xmlBufferPtr, :xmlBufferPtr], :int
+    attach_function :xmlCleanupCharEncodingHandlers, [], :void
+    attach_function :xmlCleanupEncodingAliases, [], :void
+    attach_function :xmlDelEncodingAlias, [:string], :int
+    attach_function :xmlDetectCharEncoding, [:buffer_in, :int], :xmlCharEncoding
+    attach_function :xmlFindCharEncodingHandler, [:string], :xmlCharEncodingHandlerPtr
+    attach_function :xmlGetCharEncodingHandler, [:xmlCharEncoding], :xmlCharEncodingHandlerPtr
+    attach_function :xmlGetCharEncodingName, [:xmlCharEncoding], :string
+    attach_function :xmlGetEncodingAlias, [:string], :string
+    attach_function :xmlInitCharEncodingHandlers, [], :void
+    attach_function :xmlNewCharEncodingHandler, [:string, :xmlCharEncodingInputFunc, :xmlCharEncodingOutputFunc], :xmlCharEncodingHandlerPtr
+    attach_function :xmlParseCharEncoding, [:string], :xmlCharEncoding
+    attach_function :xmlRegisterCharEncodingHandler, [:xmlCharEncodingHandlerPtr], :void
+
     # tree.h
     attach_function :xmlAddChild, [:xmlNodePtr, :xmlNodePtr], :xmlNodePtr
     attach_function :xmlAddChildList, [:xmlNodePtr, :xmlNodePtr], :xmlNodePtr
