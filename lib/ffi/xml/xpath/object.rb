@@ -57,7 +57,9 @@ module FFI
       end
 
       def nodeset
-        @nodeset ||= NodeSet.new(self[:nodesetval])
+        @nodeset ||= if nodeset?
+                       NodeSet.new(self[:nodesetval])
+                     end
       end
 
       alias nodes nodeset
@@ -65,18 +67,36 @@ module FFI
       def [](key)
         case key
         when Integer
-          nodeset[key]
+          nodeset[key] if nodeset?
         else
           super(key)
         end
       end
 
       def each(&block)
-        nodeset.each(&block)
+        if nodeset?
+          nodeset.each(&block)
+        end
+      end
+
+      def to_s
+        XML.xmlXPathCastToString(self).get_string(0)
+      end
+
+      def to_f
+        XML.xmlXPathCastToNumber(self)
+      end
+
+      def to_i
+        to_f.to_i
       end
 
       def to_a
-        nodeset.to_a
+        if nodeset?
+          nodeset.to_a
+        else
+          []
+        end
       end
 
       def finalize
