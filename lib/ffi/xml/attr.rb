@@ -1,10 +1,13 @@
 require 'ffi/xml/xml'
+require 'ffi/xml/node_like'
 
 require 'ffi'
 
 module FFI
   module XML
     class Attr < FFI::Struct
+
+      include NodeLike
 
       layout :_private, :pointer,
              :type, :xmlElementType,
@@ -18,6 +21,14 @@ module FFI
              :ns, :xmlNsPtr,
              :atype, :xmlAttributeType,
              :psvi, :pointer
+
+      def next
+        Attr.new(self[:next])
+      end
+
+      def prev
+        Attr.new(self[:prev])
+      end
 
       def attribute_type
         self[:atype]

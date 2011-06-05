@@ -62,6 +62,23 @@ module FFI
 
       alias nodes nodeset
 
+      def [](key)
+        case key
+        when Integer
+          nodeset[key]
+        else
+          super(key)
+        end
+      end
+
+      def each(&block)
+        nodeset.each(&block)
+      end
+
+      def to_a
+        nodeset.to_a
+      end
+
       def finalize
         XML.xmlXPathFreeObject(self)
       end

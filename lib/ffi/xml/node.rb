@@ -1,6 +1,7 @@
 require 'ffi/xml/types'
 require 'ffi/xml/attributes'
 require 'ffi/xml/children'
+require 'ffi/xml/node_like'
 
 require 'ffi'
 require 'uri/generic'
@@ -8,6 +9,8 @@ require 'uri/generic'
 module FFI
   module XML
     class Node < FFI::Struct
+
+      include NodeLike
 
       layout :_private, :pointer,
              :type, :xmlElementType,
@@ -26,64 +29,12 @@ module FFI
              :line, :ushort,
              :extra, :ushort
 
-      def type
-        self[:type]
-      end
-
-      def element?
-        self[:type] == :element_node
-      end
-
-      def attribute?
-        self[:type] == :attribute_node
+      def name=(new_name)
+        XML.xmlNodeSetName(self,new_name)
       end
 
       def text?
         XML.xmlNodeIsText(self) == 1
-      end
-
-      def cdata?
-        self[:type] == :cdata_section_node
-      end
-
-      def entity_ref?
-        self[:type] == :entity_ref_node
-      end
-
-      def entity?
-        self[:type] == :entity_node
-      end
-
-      def pi?
-        self[:type] == :pi_node
-      end
-
-      def comment?
-        self[:type] == :comment_node
-      end
-
-      def document_type?
-        self[:type] == :document_type_node
-      end
-
-      def document_fragment?
-        self[:type] == :document_frag_node
-      end
-
-      def notation?
-        self[:type] == :notation_node
-      end
-
-      def dtd?
-        self[:type] == :dtd_node
-      end
-
-      def name
-        self[:name].get_string(0)
-      end
-
-      def name=(new_name)
-        XML.xmlNodeSetName(self,new_name)
       end
 
       def line
@@ -133,26 +84,6 @@ module FFI
 
       def doc=(new_doc)
         XML.xmlSetTreeDoc(self,new_doc)
-      end
-
-      def parent
-        Node.new(self[:parent])
-      end
-
-      def first_child
-        Node.new(self[:children])
-      end
-
-      def last_child
-        Node.new(self[:last])
-      end
-
-      def prev
-        Node.new(self[:prev])
-      end
-
-      def next
-        Node.new(self[:next])
       end
 
       def first_element
