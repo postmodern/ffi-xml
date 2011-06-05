@@ -39,7 +39,7 @@ module FFI
       end
 
       def text?
-        XML.xmlNodeIsText(self)
+        XML.xmlNodeIsText(self) == 1
       end
 
       def cdata?
@@ -79,7 +79,7 @@ module FFI
       end
 
       def name
-        XML.xmlNodeGetName(self)
+        self[:name].get_string(0)
       end
 
       def name=(new_name)

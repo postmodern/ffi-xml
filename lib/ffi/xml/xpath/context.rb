@@ -4,7 +4,7 @@ require 'ffi/xml/xml'
 
 module FFI
   module XML
-    module XPathContext
+    class XPathContext
 
       attr_reader :doc
 
@@ -24,7 +24,7 @@ module FFI
           raise("unable to evaluate xpath expression #{expression.dump}")
         end
 
-        return XPath::Object.new(xpath_ptr)
+        return XPathObject.new(xpath_ptr)
       end
 
       def to_ptr

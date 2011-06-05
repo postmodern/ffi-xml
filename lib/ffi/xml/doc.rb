@@ -91,7 +91,7 @@ module FFI
       end
 
       def xpath(expression)
-        XPath::Context.new(self).evaluate(expression)
+        XPathContext.new(self).evaluate(expression)
       end
 
       def create_internal_subset(name,external_id,system_id)

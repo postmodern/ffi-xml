@@ -13,9 +13,9 @@ module FFI
 
       def [](name,namespace=nil)
         if namespace
-          XML.xmlGetNsProp(@node,name,namespace)
+          Attr.new(XML.xmlGetNsProp(@node,name,namespace))
         else
-          XML.xmlGetProp(@node,name)
+          Attr.new(XML.xmlGetProp(@node,name))
         end
       end
 
@@ -25,9 +25,9 @@ module FFI
 
       def has?(name,namespace=nil)
         if namespace
-          XML.xmlHasNsProp(@node,name,namespace)
+          !XML.xmlHasNsProp(@node,name,namespace).null?
         else
-          XML.xmlHasProp(@node,name,namespace)
+          !XML.xmlHasProp(@node,name).null?
         end
       end
 

@@ -19,12 +19,12 @@ module FFI
              :atype, :xmlAttributeType,
              :psvi, :pointer
 
-      def serialize(buffer,text)
-        XML.xmlAttrSerializeTxtContent(buffer,self[:doc],self,text)
-      end
-
       def attribute_type
         self[:atype]
+      end
+
+      def serialize(buffer,text)
+        XML.xmlAttrSerializeTxtContent(buffer,self[:doc],self,text)
       end
 
       def remove!
