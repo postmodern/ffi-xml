@@ -286,6 +286,10 @@ module FFI
     attach_function :xmlXPathObjectCopy, [:xmlXPathObjectPtr], :xmlXPathObjectPtr
     attach_function :xmlXPathOrderDocElems, [:xmlDocPtr], :long
 
+    def XML.init
+      XML.xmlInitParser
+    end
+
     def XML.is_xhtml?(system_id,public_id)
       case XML.xmlIsXHTML(system_id,public_id)
       when 1

@@ -17,9 +17,6 @@ module FFI
     typedef :pointer, :xmlDocPtr
     typedef :pointer, :xmlDtdPtr
     typedef :pointer, :xmlDictPtr
-    typedef :pointer, :xmlXPathContextPtr
-    typedef :pointer, :xmlXPathCompExprPtr
-    typedef :pointer, :xmlXPathObjectPtr
     typedef :pointer, :xmlNsPtr
     typedef :pointer, :xmlNodePtr
     typedef :pointer, :xmlNodeSetPtr
@@ -1006,19 +1003,6 @@ module FFI
       :required,
       :implied,
       :fixed
-    ]
-
-    enum :xmlXPathObjectType, [
-      :undefined,    0,
-      :nodeset,      1,
-      :boolean,      2,
-      :number,       3,
-      :string,       4,
-      :point,        5,
-      :range,        6,
-      :location_set, 7,
-      :users,        8,
-      :xslt_tree,    9
     ]
 
     callback :xmlInputReadCallback, [:pointer, :buffer_out, :int], :int
