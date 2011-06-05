@@ -1,4 +1,4 @@
-require 'ffi/xml/xpath_context'
+require 'ffi/xml/xpath/context'
 require 'ffi/xml/xml'
 
 module FFI
@@ -91,7 +91,7 @@ module FFI
       end
 
       def xpath(expression)
-        XPathContext.new(self).evaluate(expression)
+        XPath::Context.new(self).evaluate(expression)
       end
 
       def create_internal_subset(name,external_id,system_id)
