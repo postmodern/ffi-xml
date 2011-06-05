@@ -106,11 +106,11 @@ module FFI
         @children ||= Children.new(self)
       end
 
-      def next_sibling=(node)
+      def next=(node)
         XML.xmlAddNextSibling(self,node)
       end
 
-      def prev_sibling=(node)
+      def prev=(node)
         XML.xmlAddPrevSibling(self,node)
       end
 
