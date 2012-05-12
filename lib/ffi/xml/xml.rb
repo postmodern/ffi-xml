@@ -10,7 +10,7 @@ module FFI
     # provide a similar REXML::Document / Nokogiri::Document constant
     Document = Doc
 
-    ffi_lib 'xml2'
+    ffi_lib ['xml2', 'libxml2.so.2']
 
     attach_function :xmlCheckVersion, [:int], :void
 
